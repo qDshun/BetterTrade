@@ -14,14 +14,14 @@ using Verse.Grammar;
 using RimWorld;
 using RimWorld.Planet;
 
-// *Uncomment for Harmony*
 using System.Reflection;
 using HarmonyLib;
 using System.Text.RegularExpressions;
 
 namespace qDshun.BetterTrade
 {
-
+    //TODO: Refresh cache on successfull trade
+    //TODO: Cache restock tick so cache could be cleaned if trader refreshed without opening a map
     [StaticConstructorOnStartup]
     public static class Start
     {
@@ -76,10 +76,6 @@ namespace qDshun.BetterTrade
         public static bool IsStockGenerated(Settlement settlement)
         {
             return settlement.trader.NextRestockTick != -1;
-            var stockField = typeof(Settlement_TraderTracker)
-                .GetField("stock", BindingFlags.NonPublic | BindingFlags.Instance);
-            var stock = stockField.GetValue(settlement.trader) as ThingOwner<Thing>;
-            return stock != null;
         }
 
         public static bool IsValidSettlement(Settlement settlement)
